@@ -98,7 +98,7 @@ app.use(authRoutes);
 mongoose.connect(constants.MONGODB_URI)
 .then( result => {
     console.log('connected');
-    app.listen(8000);
+    app.listen(80);
 })
 .catch(err => {
     console.log(err);

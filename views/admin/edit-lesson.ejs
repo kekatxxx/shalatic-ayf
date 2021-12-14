@@ -1,0 +1,37 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/datepicker.min.css">
+</head>
+
+<body>
+    
+   <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <form class="lesson-form" action="/admin/<%= editMode?'edit-lesson':'add-lesson'%>" method="POST">
+            <% if(editMode){ %>
+            <input type="hidden" name="id" value="<%=lesson._id%>">
+            <% } %>
+            <div class="form-control">
+                <label for="date">Data pratica</label>
+                <input type="text" name="date" id="date" value="<%= editMode ? lesson.date : '' %>" class="datefield">
+            </div>
+            <div class="form-control">
+                <label for="slots">Num partecipanti max</label>
+                <input type="number" name="slots" id="slots" step="1" value="<%= editMode ? lesson.slots : '' %>" >
+            </div>
+            <div class="form-control">
+                <label for="type">Tipologia pratica</label>
+                <input type="text" name="type" id="type" value="<%= editMode ? lesson.type : '' %>" >
+            </div>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="btn" type="submit"><%= editMode ? 'Modifica pratica' : 'Aggiungi pratica'%></button>
+        </form>
+    </main>
+
+    <script>
+        const datepicker = require('js-datepicker');
+        const picker = datepicker('.datefield');
+    </script>
+
+<%- include('../includes/end.ejs') %>

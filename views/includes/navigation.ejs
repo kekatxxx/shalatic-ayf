@@ -1,0 +1,80 @@
+<div class="backdrop"></div>
+<header class="main-header">
+    <img src="/img/logo-ayf-small.png" class="logo"/>
+    <button id="side-menu-toggle">Menu</button>
+    <nav class="main-header__nav">
+        <ul class="main-header__item-list">
+            <% if (isAuthenticated) { %>
+                <li class="main-header__item">
+                    <a class="<%= path === '/' ? 'active' : '' %>" href="/">Prenota pratica</a>
+                </li>
+                <!--li class="main-header__item">
+                    <a class="<%= path === '/lessons' ? 'active' : '' %>" href="/lessons">Lezioni</a>
+                </li-->
+                <li class="main-header__item">
+                    <a class="<%= path === '/admin/add-lesson' ? 'active' : '' %>" href="/admin/add-lesson">Aggiungi pratica
+                    </a>
+                </li>
+                <li class="main-header__item">
+                    <a class="<%= path === '/admin/lessons' ? 'active' : '' %>" href="/admin/lessons">Gestisci pratiche
+                    </a>
+                </li>
+                <li class="main-header__item">
+                    <a class="<%= path === '/profile' ? 'active' : '' %>" href="/profile">Il mio profilo
+                    </a>
+                </li>
+            <% } %>
+        </ul>
+        <ul class="main-header__item-list">
+            <% if (!isAuthenticated) { %>
+                <li class="main-header__item">
+                    <a class="<%= path === '/login' ? 'active' : '' %>" href="/login">Login</a>
+                </li>
+                <li class="main-header__item">
+                    <a class="<%= path === '/signup' ? 'active' : '' %>" href="/signup">Signup</a>
+                </li>
+            <% } else { %>
+                <li class="main-header__item">
+                    Namaste, <%= userName %> &nbsp;
+                    <form action="/logout" method="post">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <button type="submit">Logout</button>
+                    </form>
+                </li>
+            <% } %>
+        </ul>
+    </nav>
+</header>
+
+<nav class="mobile-nav">
+    <ul class="mobile-nav__item-list">
+        <li class="mobile-nav__item">
+            <a class="<%= path === '/' ? 'active' : '' %>" href="/">Prenota pratica</a>
+        </li>
+        <% if (isAuthenticated) { %>
+            <li class="mobile-nav__item">
+                <a class="<%= path === '/admin/add-lesson' ? 'active' : '' %>" href="/admin/add-lesson">Aggiungi pratica
+                </a>
+            </li>
+            <li class="mobile-nav__item">
+                <a class="<%= path === '/admin/lessons' ? 'active' : '' %>" href="/admin/lessons">Gestisci pratiche
+                </a>
+            </li>
+        <% } %>
+        <% if (!isAuthenticated) { %>
+            <li class="mobile-nav__item">
+                <a class="<%= path === '/login' ? 'active' : '' %>" href="/login">Login</a>
+            </li>
+            <li class="mobile-nav__item">
+                <a class="<%= path === '/signup' ? 'active' : '' %>" href="/signup">Signup</a>
+            </li>
+        <% } else { %>
+            <li class="mobile-nav__item">
+                <form action="/logout" method="post">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button type="submit">Logout</button>
+                </form>
+            </li>
+        <% } %>
+    </ul>
+</nav>

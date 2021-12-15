@@ -1,6 +1,4 @@
-.login-form {
-  width: 20rem;
-  max-width: 90%;
+.login-box {
+  width: 25rem;
   margin: auto;
-  display: block;
 }

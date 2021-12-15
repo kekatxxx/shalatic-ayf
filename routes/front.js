@@ -13,4 +13,6 @@ router.get('/profile', isAuth, frontController.getProfile);
 
 router.get('/edit-profile', isAuth, frontController.getEditProfile);
 
+router.post('/edit-profile', isAuth, frontController.postEditProfile);
+
 module.exports = router;

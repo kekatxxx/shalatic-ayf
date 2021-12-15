@@ -1,49 +1,43 @@
 <%- include('../includes/head.ejs') %>
-    <link rel="stylesheet" href="/css/product.css">
 </head>
 
 <body>
-    <%- include('../includes/navigation.ejs') %>
-    <main>
+    <%- include('../includes/nav.ejs') %>
+    <div class="container">
         <% if (messageInfo) { %>
-            <div class="user-message"><%= messageInfo %></div>
+            <div class="alert alert-success" role="alert"><%= messageInfo %></div>
         <% } %>
         <% if (messageErr) { %>
-            <div class="user-message user-message--error"><%= messageErr %></div>
+            <div class="alert alert-danger" role="alert"><%= messageErr %></div>
         <% } %>
         <% if (lessons.length > 0) { %>
-        <div class="grid">
+
+            <div class="row pt-4">
             <% for (let lesson of lessons) { %>
-                <article class="card product-item">
-                    <header class="card__header">
-                        <h1 class="product__title">
-                            <%= lesson.date %>
-                        </h1>
-                    </header>
-                    <div class="card__content">
-                        <h3 class="product__price">
-                            <%= lesson.maxSlots-lesson.participants.length %> posti disponibili
-                        </h3>
-                        <p class="product__description">
-                            <%= lesson.type %>
-                        </p>
-                    </div>
-                    <div class="card__actions">
-                        <form action="/admin/reserve-slot" method="POST">
-                            <% if(lesson.participants.find(part => part.userId.toString() === userId.toString())){ %>
-                                <button type="button" class="btn_disabled" disabled>Prenotato</button>
-                            <% }else{ %>
-                                <button class="btn" type="submit">Prenota un posto</button>
-                            <% } %>
-                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                            <input type="hidden" name="lessonId" value="<%= lesson._id %>">
-                        </form>
-                    </div>
-                </article>
+                <div class="col-sm-3">
+                    <div class="card bg-light mb-3">
+                        <div class="card-header"><%= lesson.date %></div>
+                        <div class="card-body">
+                            <h5 class="card-title"><%= lesson.type %></h5>
+                            <p class="card-text"><%= lesson.maxSlots-lesson.participants.length %> posti disponibili</p>
+
+                            <form action="/admin/reserve-slot" method="POST">
+                                <% if(lesson.participants.find(part => part.userId.toString() === userId.toString())){ %>
+                                    <button type="button" class="btn btn-outline-secondary btn disabled" disabled>Prenotato</button>
+                                <% }else{ %>
+                                    <button class="btn btn-primary" type="submit">Prenota un posto</button>
+                                <% } %>
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <input type="hidden" name="lessonId" value="<%= lesson._id %>">
+                            </form>
+
+                        </div>
+                    </div>                   
+                </div>
                 <% } %>
-        </div>
+            </div>
         <% } else { %>
             <h1>Nessuna pratica trovata!</h1>
         <% } %>
-    </main>
+        </div>
 <%- include('../includes/end.ejs') %>

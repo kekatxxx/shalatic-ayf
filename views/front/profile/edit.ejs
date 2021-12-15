@@ -1,0 +1,44 @@
+<%- include('../../includes/head.ejs') %>
+</head>
+
+<body>
+    <%- include('../../includes/nav.ejs') %>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card mt-5">
+                    <div class="card-header">
+                        Modifica dati utente
+                    </div>
+                    <div class="card-body">
+                        <form class="profile-form" action="/edit-profile" method="POST">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input 
+                                    type="email"
+                                    class="form-control"
+                                    value="<%= user.email %>"
+                                    readonly
+                                    >
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Nome</label>
+                                <input 
+                                    type="text" 
+                                    name="name" 
+                                    id="name" 
+                                    class="form-control"
+                                    value="<%= user.name %>"
+                                    >
+                            </div>
+                            <input type="hidden" name="id" value="<%= user._id %>">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <button class="btn btn-info" type="submit">Salva</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include('../../includes/end.ejs') %>

@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#"><img src="/img/logo-ayf-small.png" class="logo"/></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <% if (isAuthenticated) { %>
+            <li class="nav-item">
+            <a class="<%= path === '/' ? 'active' : '' %> nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="<%= path === '/admin/add-lesson' ? 'active' : '' %> nav-link" href="/admin/add-lesson">Aggiungi pratica
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="<%= path === '/admin/lessons' ? 'active' : '' %> nav-link" href="/admin/lessons">Gestisci pratiche
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="<%= path === '/profile' ? 'active' : '' %> nav-link" href="/profile">Il mio profilo
+                </a>
+            </li>
+        <% } %>
+      </ul>
+      <div class="form-inline my-2 my-lg-0">
+        <% if (!isAuthenticated) { %>
+            <a class="btn btn-info" href="/login">Accedi</a>
+            <a class="btn btn-outline-info ml-2" href="/signup">Registrati</a>
+        <% } else { %>
+            Namaste, <%= userName %>
+            <form action="/logout" method="post">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button type="submit" class="btn btn-info ml-2">Logout</button>
+            </form>
+        <% } %>
+    </div>
+    </div>
+  </nav>

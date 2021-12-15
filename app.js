@@ -22,7 +22,7 @@ const app = express();
  * passing this to the store prop on session
  */
  const store = new MongoDBStore({
-    uri: MONGODB_URI,
+    uri: constants.MONGODB_URI,
     collection: 'sessions'
   });
 

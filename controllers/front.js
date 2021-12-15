@@ -35,11 +35,19 @@ exports.getProfile = (req, res, next) => {
   }
   User.findById(req.session.user._id)
     .then(user => {
-      res.render('front/profile', {
+      res.render('front/profile/home', {
         pageTitle: 'Profilo utente',
         path: '/profile',
         user: user
       });
     })
     .catch(err => {console.log(err)});
+}
+
+exports.getEditProfile = (req, res, next) => {
+
+}
+
+exports.postEditProfile = (req, res, next) => {
+  
 }

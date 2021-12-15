@@ -11,4 +11,6 @@ router.get('/', isAuth, frontController.getIndex);
 
 router.get('/profile', isAuth, frontController.getProfile);
 
+router.get('/edit-profile', isAuth, frontController.getEditProfile);
+
 module.exports = router;

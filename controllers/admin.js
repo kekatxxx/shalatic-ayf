@@ -37,12 +37,12 @@ exports.postEditLesson = (req, res, next) => {
   Lesson.findById(id)
     .then(lesson => {
       lesson.date = updDate;
-      lesson.slots = updSlots;
+      lesson.maxSlots = updSlots;
       lesson.type = updType;
       return lesson.save();
     })
     .then(result => {
-      console.log('Lesson created.');
+      console.log('Lesson modified.');
       res.redirect('/admin/lessons'); 
     }).catch(err => {
       console.log(err);

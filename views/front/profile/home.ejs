@@ -12,12 +12,11 @@
                         Profilo utente
                     </div>
                     <div class="card-body">
-                      <p class="card-text">In questa sezione trovi il riepilogo dei tuoi dati.</p>
+                      <p class="card-text text-secondary mb-3">In questa sezione trovi il riepilogo dei tuoi dati.</p>
                     </div>
                     <ul class="list-group list-group-flush">
-                      <li class="list-group-item">Nome: <%= user.name %></li>
-                      <li class="list-group-item">Email: <%= user.email %></li>
-                      <li class="list-group-item">A third item</li>
+                      <li class="list-group-item"><span class="text-secondary">Nome:</span> <%= user.name %></li>
+                      <li class="list-group-item"><span class="text-secondary">Email:</span> <%= user.email %></li>
                     </ul>
                     <div class="card-body">
                         <a class="btn btn-info" href="/edit-profile">Modifica dati</a>

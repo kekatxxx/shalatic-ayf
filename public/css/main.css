@@ -1,3 +1,7 @@
 nav.navbar{
   background-color: #c8e7f4!important;
 }
+
+.navbar-light .navbar-nav .active{
+  color: rgb(23, 162, 184)!important;
+}

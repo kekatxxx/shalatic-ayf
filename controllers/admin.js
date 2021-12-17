@@ -1,4 +1,5 @@
 const Lesson = require('../models/lesson');
+const User = require('../models/user');
 
 exports.getAddLesson = (req, res, next) => {
   res.render('admin/edit-lesson', {
@@ -105,4 +106,16 @@ exports.postReserveSlot = (req, res, next) => {
       res.redirect('/');
     })
     .catch(err => {console.log(err)});
+};
+
+exports.getUsers = (req, res, next) => {
+  User.find()
+    .then(users => {
+      //console.log(lessons);
+      res.render('admin/users', {
+        users: users,
+        pageTitle: 'Gestione utenti',
+        path: '/admin/users'
+      });
+    }).catch(err => console.log(err));
 };

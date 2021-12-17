@@ -22,4 +22,6 @@ router.get('/lessons', isAuth, isSuperuser, adminController.getLessons);
 
 router.post('/reserve-slot', isAuth, adminController.postReserveSlot);
 
+router.get('/users', isAuth, isSuperuser, adminController.getUsers);
+
 module.exports = router;

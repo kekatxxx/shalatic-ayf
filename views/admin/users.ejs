@@ -1,0 +1,39 @@
+<%- include('../includes/head.ejs') %>
+    </head>
+
+    <body>
+        <%- include('../includes/nav.ejs') %>
+
+            <div class="container">
+                <% if (users.length > 0) { %>
+                    <div class="list-group mt-5">
+                        <% for (let user of users) { %>
+                        <div class="list-group-item text-md-left text-center">
+                            <div class="row">
+                                <div class="col-md-3 text-md-left text-center">
+                                    <%= user.name %>
+                                </div>
+                                <div class="col-md-3 text-md-left text-center">
+                                    <%= user.email %>
+                                </div>
+                                <div class="col-md-3 text-md-left text-center">
+                                    
+                                </div>
+                                <div class="col-md-3 text-md-right text-center">
+                                    <% if(!user.superuser){ %>
+                                    <form action="/admin/delete-lesson" method="POST" style="display: inline;">
+                                        <button class="btn btn-sm btn-outline-danger" type="submit">Elimina</button>
+                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                    </form>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                    </div>
+                <% } else { %>
+                    <h1>Nessun utente trovato!</h1>
+                <% } %>
+            </div>
+
+        <%- include('../includes/end.ejs') %>

@@ -62,8 +62,8 @@ exports.postLogin = (req, res, next) => {
             req.session.isLoggedIn = true;
             req.session.user = user;
             return req.session.save(err => {
-              console.log(err);
-              return res.redirect('/');
+              //console.log(err);
+              return res.redirect(user.superuser ? '/admin/lessons' : '/');
             });
           }
           req.flash('error', 'Invalid password.');
@@ -120,7 +120,7 @@ exports.postSignup = (req, res, next) => {
 
 exports.postLogout = (req, res, next) => {
   req.session.destroy(err => {
-    console.log(err);
+    //console.log(err);
     res.redirect('/');
   });
 };

@@ -82,7 +82,7 @@ exports.postDeleteLesson = (req, res, next) => {
 exports.getLessons = (req, res, next) => {
   Lesson.find()
     .then(lessons => {
-      //console.log(lessons);
+      console.log('getLessons');
       res.render('admin/lessons', {
         lessons: lessons,
         pageTitle: 'Gestione Pratiche',

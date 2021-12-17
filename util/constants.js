@@ -6,4 +6,4 @@ exports.SUPERUSER_MAIL = [
     'checcobarbieri@gmail.com'
 ];
 
-exports.APP_URL = environment.ENV === 'dev' ? 'http://localhost:3000/' : 'http://161.35.145.112/';
+exports.APP_URL = environment === 'dev' ? 'http://localhost:3000/' : 'http://161.35.145.112/';

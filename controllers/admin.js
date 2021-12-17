@@ -111,7 +111,7 @@ exports.postReserveSlot = (req, res, next) => {
 exports.getUsers = (req, res, next) => {
   User.find()
     .then(users => {
-      //console.log(lessons);
+      console.info('users');
       res.render('admin/users', {
         users: users,
         pageTitle: 'Gestione utenti',

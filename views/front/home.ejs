@@ -15,14 +15,14 @@
             <div class="row pt-4">
             <% for (let lesson of lessons) { %>
                 <div class="col-sm-3">
-                    <div class="card mb-3 <%= (lesson.participants.find(part => part.userId.toString() === userId.toString())) ? 'bg-light' : 'border-info' %>">
+                    <div class="card mb-3 <%= (lesson.participants.find(part => part.userId && part.userId.toString() === userId.toString())) ? 'bg-light' : 'border-info' %>">
                         <div class="card-header"><%= lesson.date %></div>
                         <div class="card-body">
                             <h5 class="card-title"><%= lesson.type %></h5>
                             <p class="card-text"><%= lesson.maxSlots-lesson.participants.length %> posti disponibili</p>
 
                             <form action="/reserve-slot" method="POST">
-                                <% if(lesson.participants.find(part => part.userId.toString() === userId.toString())){ %>
+                                <% if(lesson.participants.find(part => part.userId && part.userId.toString() === userId.toString())){ %>
                                     <button type="button" class="btn btn-outline-secondary btn disabled" disabled>Prenotato</button>
                                 <% }else{ %>
                                     <button class="btn btn-info" type="submit">Prenota un posto</button>

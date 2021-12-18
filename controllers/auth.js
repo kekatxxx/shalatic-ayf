@@ -90,14 +90,11 @@ exports.postSignup = (req, res, next) => {
       }
       return bcrypt.hash(password, 12)
         .then(hashedPassword => {
-          let isSuperuser = undefined; 
-          if(constants.SUPERUSER_MAIL.find(val => val === email)){
-            isSuperuser = true;
-          }
+          const isSuperuser = constants.SUPERUSER_MAIL.find(val => val === email);
           const user = new User({
             email: email,
             name: name,
-            superuser: isSuperuser,
+            superuser: isSuperuser ? true : undefined,
             password: hashedPassword
           });
           return user.save();

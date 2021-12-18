@@ -24,4 +24,6 @@ router.post('/reserve-anonym-slot', isAuth, adminController.postReserveAnonymSlo
 
 router.get('/users', isAuth, isSuperuser, adminController.getUsers);
 
+router.post('/delete-user', isAuth, isSuperuser, adminController.postDeleteUser);
+
 module.exports = router;

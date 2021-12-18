@@ -125,11 +125,26 @@ exports.postReserveAnonymSlot = (req, res, next) => {
 exports.getUsers = (req, res, next) => {
   User.find()
     .then(users => {
-      console.info('users');
+      users.sort((a, b)=>{
+        if(a.superuser && !b.superuser){
+          return -1;
+        }else{
+          return 1;
+        }
+      });
       res.render('admin/users', {
         users: users,
         pageTitle: 'Gestione utenti',
         path: '/admin/users'
       });
     }).catch(err => console.log(err));
+};
+
+exports.postDeleteUser = (req, res, next) => {
+  User.findByIdAndRemove(req.body.userId)
+    .then(result => {
+      console.log('User destroyed');
+      res.redirect('/admin/users'); 
+    })
+    .catch(err => console.log(err));
 };

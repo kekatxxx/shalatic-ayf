@@ -12,6 +12,9 @@
                             <div class="row">
                                 <div class="col-md-3 text-md-left text-center">
                                     <%= user.name %>
+                                    <% if(user.superuser){ %>
+                                        <span class="badge badge-info">admin</span>
+                                    <% } %>
                                 </div>
                                 <div class="col-md-3 text-md-left text-center">
                                     <%= user.email %>
@@ -21,8 +24,9 @@
                                 </div>
                                 <div class="col-md-3 text-md-right text-center">
                                     <% if(!user.superuser){ %>
-                                    <form action="/admin/delete-lesson" method="POST" style="display: inline;">
+                                    <form action="/admin/delete-user" method="POST" style="display: inline;">
                                         <button class="btn btn-sm btn-outline-danger" type="submit">Elimina</button>
+                                        <input type="hidden" name="userId" value="<%= user._id %>">
                                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                     </form>
                                     <% } %>

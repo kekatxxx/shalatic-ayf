@@ -33,8 +33,7 @@ exports.getProfile = (req, res, next) => {
   if(!req.session.user){
     return res.redirect('/');
   }
-  User.findById(req.session.user._id)
-    .then(user => {
+  User.findById(req.session.user._id).then(user => {
       res.render('front/profile/home', {
         pageTitle: 'Profilo utente',
         path: '/profile',

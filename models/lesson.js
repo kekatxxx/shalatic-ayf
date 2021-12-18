@@ -30,7 +30,7 @@ lessonSchema.methods.reserveSlot = function(userId){
     
     const updatedParticipants = [...this.participants];
     //controllo se l'utente loggato ha gia prenotato un posto
-    if(this.participants.find(user => user.userId.toString() === userId.toString())){
+    if(this.participants.find(part => part.userId && part.userId.toString() === userId.toString())){
         console.log('Hai gia prenotato questa pratica.');
         return false;
     }else{

@@ -5,14 +5,14 @@
     <%- include('../includes/nav.ejs') %>
     <div class="container">
         <% if (messageInfo) { %>
-            <div class="alert alert-success" role="alert"><%= messageInfo %></div>
+            <div class="mt-4 alert alert-success" role="alert"><%= messageInfo %></div>
         <% } %>
         <% if (messageErr) { %>
-            <div class="alert alert-danger" role="alert"><%= messageErr %></div>
+            <div class="mt-4 alert alert-danger" role="alert"><%= messageErr %></div>
         <% } %>
         <% if (lessons.length > 0) { %>
 
-            <div class="row pt-4">
+            <div class="row mt-4">
             <% for (let lesson of lessons) { %>
                 <div class="col-sm-3">
                     <div class="card mb-3 <%= (lesson.participants.find(part => part.userId && part.userId.toString() === userId.toString())) ? 'bg-light' : 'border-info' %>">

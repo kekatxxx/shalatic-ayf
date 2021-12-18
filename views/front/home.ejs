@@ -21,7 +21,7 @@
                             <h5 class="card-title"><%= lesson.type %></h5>
                             <p class="card-text"><%= lesson.maxSlots-lesson.participants.length %> posti disponibili</p>
 
-                            <form action="/admin/reserve-slot" method="POST">
+                            <form action="/reserve-slot" method="POST">
                                 <% if(lesson.participants.find(part => part.userId.toString() === userId.toString())){ %>
                                     <button type="button" class="btn btn-outline-secondary btn disabled" disabled>Prenotato</button>
                                 <% }else{ %>

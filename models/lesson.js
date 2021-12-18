@@ -17,14 +17,17 @@ const lessonSchema = new Schema({
         {
             userId: {
                 type: Schema.Types.ObjectId,
-                ref: 'User',
-                required: true
+                ref: 'User'
+            },
+            name: {
+                type: String
             }
         }
     ]
 });
 
 lessonSchema.methods.reserveSlot = function(userId){
+    
     const updatedParticipants = [...this.participants];
     //controllo se l'utente loggato ha gia prenotato un posto
     if(this.participants.find(user => user.userId.toString() === userId.toString())){
@@ -35,6 +38,16 @@ lessonSchema.methods.reserveSlot = function(userId){
             userId: userId
         });
     }
+    this.participants = updatedParticipants;
+    return this.save();
+}
+
+lessonSchema.methods.reserveAnonymSlot = function(name){
+    
+    const updatedParticipants = [...this.participants];
+    updatedParticipants.push({
+        name: name
+    });
     this.participants = updatedParticipants;
     return this.save();
 }

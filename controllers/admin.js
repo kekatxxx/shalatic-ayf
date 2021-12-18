@@ -80,22 +80,36 @@ exports.postDeleteLesson = (req, res, next) => {
 };
 
 exports.getLessons = (req, res, next) => {
-  Lesson.find()
+  Lesson
+    .find()
+    .populate('participants.userId')
     .then(lessons => {
-      console.log('getLessons');
+      console.log(lessons[0].participants);
       res.render('admin/lessons', {
         lessons: lessons,
         pageTitle: 'Gestione Pratiche',
         path: '/admin/lessons'
       });
     }).catch(err => console.log(err));
+
+  // Lesson
+  //   .find()
+  //   .then(lessons => {
+  //     console.log('getLessons');
+  //     res.render('admin/lessons', {
+  //       lessons: lessons,
+  //       pageTitle: 'Gestione Pratiche',
+  //       path: '/admin/lessons'
+  //     });
+  //   }).catch(err => console.log(err));
 };
 
-exports.postReserveSlot = (req, res, next) => {
+exports.postReserveAnonymSlot = (req, res, next) => {
   const lessonId = req.body.lessonId;
+  const name = req.body.name;
   Lesson.findById(lessonId)
     .then(lesson => {
-      return lesson.reserveSlot(req.session.user._id);
+      return lesson.reserveAnonymSlot(name);
     })
     .then(result => {
       if(result){
@@ -103,7 +117,7 @@ exports.postReserveSlot = (req, res, next) => {
       }else{
         req.flash('error', 'Non è stato possibile prenotare.');
       }
-      res.redirect('/');
+      res.redirect('/admin/lessons');
     })
     .catch(err => {console.log(err)});
 };

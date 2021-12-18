@@ -15,4 +15,6 @@ router.get('/edit-profile', isAuth, frontController.getEditProfile);
 
 router.post('/edit-profile', isAuth, frontController.postEditProfile);
 
+router.post('/reserve-slot', isAuth, frontController.postReserveSlot);
+
 module.exports = router;

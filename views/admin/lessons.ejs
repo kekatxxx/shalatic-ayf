@@ -19,7 +19,7 @@
                                 <div class="col-md-2 text-md-left text-center">
                                     <%= lesson.type %>
                                 </div>
-                                <div class="col-md-4 text-md-right text-center">
+                                <div class="col-md-4 text-md-left text-center">
                                     <a 
                                         class="btn btn-sm btn-outline-success" 
                                         data-toggle="collapse" href="#lessonPart_<%= lesson._id %>" role="button" aria-expanded="false" aria-controls="collapseExample"
@@ -32,11 +32,33 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="row collapse" id="lessonPart_<%= lesson._id %>">
-                                <ul>
-                                    <li>Checco (checcobarbieri@gmail.com)</li>
-                                    <li>Franci (test@test.com)</li>
-                                </ul>
+                            <div class="collapse" id="lessonPart_<%= lesson._id %>">
+                                <div class="row border-top mt-3 text-left">
+                                    <ol class="mt-3">
+                                        <% for(let partData of lesson.participants){ %>
+                                            <li>
+                                                <% if (partData.userId){ %> 
+                                                    <%= partData.userId.name %> - <%= partData.userId.email %>
+                                                <% }else{ %>
+                                                    <%= partData.name %> (anonimo) %>
+                                                <% } %>
+                                            </li>
+                                        <% } %>
+                                    </ol>
+                                </div>
+                                <div class="row">
+                                    <form action="/admin/reserve-anonym-slot" method="POST" class="form-inline mt-1">
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <input type="text" readonly class="form-control-plaintext" value="Prenotazione rapida">
+                                        </div>
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <input name="name" type="text" class="form-control" placeholder="Nome" />
+                                        </div>
+                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                        <input type="hidden" name="lessonId" value="<%= lesson._id %>">
+                                        <button type="submit" class="btn btn-outline-info mb-2">Inserisci allievo</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                         <% } %>

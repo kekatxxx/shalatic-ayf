@@ -75,3 +75,20 @@ exports.postEditProfile = (req, res, next) => {
       console.log(err);
     });
 }
+
+exports.postReserveSlot = (req, res, next) => {
+  const lessonId = req.body.lessonId;
+  Lesson.findById(lessonId)
+    .then(lesson => {
+      return lesson.reserveSlot(req.session.user._id);
+    })
+    .then(result => {
+      if(result){
+        req.flash('info', 'Pratica prenotata con successo!');
+      }else{
+        req.flash('error', 'Non è stato possibile prenotare.');
+      }
+      res.redirect('/');
+    })
+    .catch(err => {console.log(err)});
+};

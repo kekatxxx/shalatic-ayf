@@ -20,7 +20,7 @@ router.post('/delete-lesson', isAuth, isSuperuser, adminController.postDeleteLes
 
 router.get('/lessons', isAuth, isSuperuser, adminController.getLessons);
 
-router.post('/reserve-slot', isAuth, adminController.postReserveSlot);
+router.post('/reserve-anonym-slot', isAuth, adminController.postReserveAnonymSlot);
 
 router.get('/users', isAuth, isSuperuser, adminController.getUsers);
 

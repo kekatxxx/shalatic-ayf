@@ -15,7 +15,7 @@
             <div class="row pt-4">
             <% for (let lesson of lessons) { %>
                 <div class="col-sm-3">
-                    <div class="card bg-light mb-3">
+                    <div class="card mb-3 <%= (lesson.participants.find(part => part.userId.toString() === userId.toString())) ? 'bg-light' : 'border-success' %>">
                         <div class="card-header"><%= lesson.date %></div>
                         <div class="card-body">
                             <h5 class="card-title"><%= lesson.type %></h5>

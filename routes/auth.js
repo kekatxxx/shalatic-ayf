@@ -9,7 +9,10 @@ const recaptcha = new Recaptcha('6LcEm98dAAAAAIcVdCv3F9KZZhvZCIiOOLQAthJ9', '6Lc
 
 router.get('/login', authController.getLogin);
 
-router.get('/signup', recaptcha.middleware.render, authController.getSignup);
+// router.get('/signup', recaptcha.middleware.render, authController.getSignup);
+router.get('/signup', recaptcha.middleware.render, function(req, res){
+    res.render('auth/signup', { captcha:res.recaptcha });
+});
 
 router.post('/login', authController.postLogin);
 

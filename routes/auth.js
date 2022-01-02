@@ -8,7 +8,7 @@ const Recaptcha = require('express-recaptcha').RecaptchaV3;
 const recaptcha = new Recaptcha('6LcEm98dAAAAAIcVdCv3F9KZZhvZCIiOOLQAthJ9', '6LcEm98dAAAAAPAPX69buX1n77XSCxrE9CqyT8Dg');
 
 router.get('/', recaptcha.middleware.render, function(req, res){
-    res.render('login', { captcha:res.recaptcha });
+    res.render('auth/login', { captcha:res.recaptcha });
 });
 
 router.get('/login', authController.getLogin);

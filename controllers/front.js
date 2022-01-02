@@ -1,5 +1,6 @@
 const Lesson = require('../models/lesson');
 const User = require('../models/user');
+const functions = require('../util/functions');
 /**
  * getIndex()
  */
@@ -18,13 +19,7 @@ exports.getIndex = (req, res, next) => {
   }
   Lesson.find()
     .then(lessons => {
-      lessons.sort((a, b) => {
-        if(a.date.split('/')[2]+a.date.split('/')[1]+a.date.split('/')[0] > b.date.split('/')[2]+b.date.split('/')[1]+b.date.split('/')[0]){
-          return 1;
-        }else{
-          return -1;
-        }
-      });
+      lessons = functions.orderByDate(lessons);
       res.render('front/home', {
         pageTitle: 'Shalatic',
         path: '/',

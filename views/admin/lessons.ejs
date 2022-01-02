@@ -5,8 +5,14 @@
         <%- include('../includes/nav.ejs') %>
 
             <div class="container">
+                <% if (messageInfo) { %>
+                    <div class="mt-4 alert alert-success" role="alert"><%= messageInfo %></div>
+                <% } %>
+                <% if (messageErr) { %>
+                    <div class="mt-4 alert alert-danger" role="alert"><%= messageErr %></div>
+                <% } %>
                 <% if (lessons.length > 0) { %>
-                    <div class="list-group mt-5">
+                    <div class="list-group mt-4">
                         <% for (let lesson of lessons) { %>
                         <div class="list-group-item text-md-left text-center">
                             <div class="row">

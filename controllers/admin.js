@@ -1,5 +1,6 @@
 const Lesson = require('../models/lesson');
 const User = require('../models/user');
+const functions = require('../util/functions');
 
 exports.getAddLesson = (req, res, next) => {
   res.render('admin/edit-lesson', {
@@ -80,15 +81,29 @@ exports.postDeleteLesson = (req, res, next) => {
 };
 
 exports.getLessons = (req, res, next) => {
+  let msgInf = req.flash('info');
+  let msgErr = req.flash('error');
+  if(msgInf.length > 0){
+    msgInf = msgInf[0];
+  }else{
+    msgInf = null;
+  }
+  if(msgErr.length > 0){
+    msgErr = msgErr[0];
+  }else{
+    msgErr = null;
+  }
   Lesson
     .find()
     .populate('participants.userId')
     .then(lessons => {
-      console.log(lessons[0].participants);
+      lessons = functions.orderByDate(lessons);
       res.render('admin/lessons', {
         lessons: lessons,
         pageTitle: 'Gestione Pratiche',
-        path: '/admin/lessons'
+        path: '/admin/lessons',
+        messageInfo: msgInf,
+        messageErr: msgErr
       });
     }).catch(err => console.log(err));
 
@@ -113,9 +128,9 @@ exports.postReserveAnonymSlot = (req, res, next) => {
     })
     .then(result => {
       if(result){
-        req.flash('info', 'Pratica prenotata con successo!');
+        req.flash('info', 'Prenotazione rapida aggiunta.');
       }else{
-        req.flash('error', 'Non è stato possibile prenotare.');
+        req.flash('error', 'Non è stato possibile aggiungere la prenotazione.');
       }
       res.redirect('/admin/lessons');
     })

@@ -7,13 +7,9 @@ const router = express.Router();
 const Recaptcha = require('express-recaptcha').RecaptchaV3;
 const recaptcha = new Recaptcha('6LcEm98dAAAAAIcVdCv3F9KZZhvZCIiOOLQAthJ9', '6LcEm98dAAAAAPAPX69buX1n77XSCxrE9CqyT8Dg');
 
-router.get('/', recaptcha.middleware.render, function(req, res){
-    res.render('auth/login', { captcha:res.recaptcha });
-});
-
 router.get('/login', authController.getLogin);
 
-router.get('/signup', authController.getSignup);
+router.get('/signup', recaptcha.middleware.render, authController.getSignup);
 
 router.post('/login', authController.postLogin);
 

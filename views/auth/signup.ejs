@@ -33,6 +33,9 @@
                             <label for="confirmPassword">Confirm Password</label>
                             <input type="password" name="confirmPassword" id="confirmPassword" class="form-control">
                         </div>
+                        <div class="form-group">
+                            <%= captcha %>
+                        </div>
                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                         <button class="btn btn-info" type="submit">Signup</button>
                     </form>

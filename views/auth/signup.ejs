@@ -1,10 +1,5 @@
 <%- include('../includes/head.ejs') %>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script>
-        function onSubmit(token) {
-            document.getElementById("signup-form").submit();
-        }
-    </script>
     <link rel="stylesheet" href="/css/auth.css">
 </head>
 
@@ -40,13 +35,11 @@
                             <input type="password" name="confirmPassword" id="confirmPassword" class="form-control">
                         </div>
                         <div class="form-group">
-                            <p></p>
+                            <div class="g-recaptcha" data-sitekey="6Leg6-gdAAAAAI4NNDAhj6ENu1gl8VCaeVTvZRst"></div>
                         </div>
                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                        <button 
-                            data-sitekey="6LcEm98dAAAAAIcVdCv3F9KZZhvZCIiOOLQAthJ9" 
-                            data-callback='onSubmit' 
-                            class="btn btn-info g-recaptcha" 
+                        <button
+                            class="btn btn-info" 
                             type="submit">
                             Signup</button>
                     </form>

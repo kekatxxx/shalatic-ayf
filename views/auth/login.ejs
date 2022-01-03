@@ -8,12 +8,16 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <% if (errorMessage) { %>
-                    <div class="alert alert-danger mt-5" role="alert"><%= errorMessage %></div>
+                    <div class="alert alert-danger mt-3" role="alert"><%= errorMessage %></div>
+                <% }else if (infoMessage) { %>
+                    <div class="alert alert-success mt-3" role="alert"><%= infoMessage %></div>
+                <% }else{ %>
+                    <div class="alert alert-info mt-3" role="alert">
+                        Benvenuto nel sistema di prenotazione Shala di Astanga Yoga Firenze.<br/>
+                        Accedi con le tue credenziali o registrati cliccando sul link del menu.<br/>
+                    </div>
                 <% } %>
-                <% if (infoMessage) { %>
-                    <div class="alert alert-success mt-5" role="alert"><%= infoMessage %></div>
-                <% } %>
-                <div class="card mt-5">
+                <div class="card mt-3">
                     <div class="card-header">
                         Login
                     </div>

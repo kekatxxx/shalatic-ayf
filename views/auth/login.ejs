@@ -10,6 +10,9 @@
                 <% if (errorMessage) { %>
                     <div class="alert alert-danger mt-5" role="alert"><%= errorMessage %></div>
                 <% } %>
+                <% if (infoMessage) { %>
+                    <div class="alert alert-success mt-5" role="alert"><%= infoMessage %></div>
+                <% } %>
                 <div class="card mt-5">
                     <div class="card-header">
                         Login

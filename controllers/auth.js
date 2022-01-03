@@ -15,18 +15,25 @@ const transporter = nodemailer.createTransport(sendgridTransport({
 }));
 
 exports.getLogin = (req, res, next) => {
-  let message = req.flash('error');
-  if(message.length > 0){
-    message = message[0];
+  let mesErr = req.flash('error');
+  let mesInf = req.flash('info');
+  if(mesErr.length > 0){
+    mesErr = mesErr[0];
   }else{
-    message = null;
+    mesErr = null;
+  }
+  if(mesInf.length > 0){
+    mesInf = mesInf[0];
+  }else{
+    mesInf = null;
   }
   res.render('auth/login', {
     path: '/login',
     pageTitle: 'Login',
     isAuthenticated: false,
     //csrfToken: req.csrfToken(),
-    errorMessage: message
+    errorMessage: mesErr,
+    infoMessage: mesInf
   });
 };
 
@@ -51,7 +58,7 @@ exports.postLogin = (req, res, next) => {
   User.findOne({email: email})
     .then(user => {
       if(!user){
-        req.flash('error', 'Invalid email or password.');
+        req.flash('error', 'Email/password non valida.');
         return res.redirect('/login');
       }
       bcrypt.compare(password, user.password)
@@ -67,7 +74,7 @@ exports.postLogin = (req, res, next) => {
               return res.redirect(user.superuser ? '/admin/lessons' : '/');
             });
           }
-          req.flash('error', 'Invalid password.');
+          req.flash('error', 'Password non valida.');
           res.redirect('/login');
         })
         .catch(err => {
@@ -86,7 +93,7 @@ exports.postSignup = (req, res, next) => {
   User.findOne({email: email})
     .then(userDoc => {
       if(userDoc){
-        req.flash('error', 'Email address is already registered.');
+        req.flash('error', 'Email risulta già registrata.');
         return res.redirect('/signup');
       }
       return bcrypt.hash(password, 12)
@@ -101,6 +108,7 @@ exports.postSignup = (req, res, next) => {
           return user.save();
         })
         .then(result => {
+          req.flash('info', 'Registrazione effettuata! Adesso puoi accedere con i tuoi dati. ');
           res.redirect('/login');
           return transporter.sendMail({
             to: email,

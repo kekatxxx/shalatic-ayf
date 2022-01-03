@@ -1,5 +1,9 @@
 nav.navbar{
   background-color: #c8e7f4!important;
+  background-image: url('../img/astanga.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 70px;
 }
 
 .navbar-light .navbar-nav .active{

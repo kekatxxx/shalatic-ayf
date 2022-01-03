@@ -155,7 +155,7 @@ exports.postReset = (req, res, next) => {
     User.findOne({email: req.body.email})
       .then(user => {
         if(!user){
-          req.flash('error', 'No account with this email found.');
+          req.flash('error', 'Non è stato trovato nessun utente con questa mail.');
           return res.redirect('/reset');
         }
         user.resetToken = token;
@@ -169,8 +169,8 @@ exports.postReset = (req, res, next) => {
           from: 'checcobarbieri@gmail.com',
           subject: 'Password reset',
           html: `
-          <p>You request a password reset</p>
-          <p>Click this <a href="${constants.APP_URL}reset/${token}">link</a> to set a new password.</p>
+          <p>Hai richiesto una nuova password</p>
+          <p>Clicca su questo <a href="${constants.APP_URL}reset/${token}">link</a> per impostarla.</p>
           `
         });
       })

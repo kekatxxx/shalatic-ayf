@@ -20,11 +20,14 @@ exports.getIndex = (req, res, next) => {
   Lesson.find()
     .then(lessons => {
       lessons = functions.orderByDate(lessons);
-      lessons = functions.formatDate(lessons);
+      firstWeekLes = functions.getLessonsInNextDays(lessons, 0, 7);
+      secondweekLes = functions.getLessonsInNextDays(lessons, 7, 14);
+      
       res.render('front/home', {
         pageTitle: 'Shalatic',
         path: '/',
-        lessons: lessons,
+        lessons: functions.formatDate(firstWeekLes),
+        swLessons: functions.formatDate(secondweekLes),
         messageInfo: msgInf,
         messageErr: msgErr
       });

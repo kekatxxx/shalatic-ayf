@@ -15,6 +15,24 @@ exports.orderByDate = function(arr, includePast){
     return array;
 };
 
+exports.getLessonsInNextDays = function(arr, days_start, days_end){
+  const startDate = new Date(Date.now() + days_start*24*60*60*1000);
+  console.log('sta', startDate);
+  let endDate = null;
+  if(days_end){
+    endDate = new Date(Date.now() + days_end*24*60*60*1000);
+    console.log('end', endDate);
+  }
+  const array = arr.filter(elem => {
+    const lessonDate = new Date(elem.date);
+    if (endDate !== null){
+      return lessonDate > startDate && lessonDate < endDate;
+    }
+    return lessonDate > startDate;
+  });
+  return array;
+}
+
 exports.formatDate = function(arr){
   arr.map((elem) => {
     const nomeGiorno = ["Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"];

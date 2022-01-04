@@ -1,5 +1,6 @@
 <%- include('../includes/head.ejs') %>
-    <link rel="stylesheet" href="/css/datepicker.min.css">
+    <!--link rel="stylesheet" href="/css/datepicker.min.css"-->
+    <link rel="stylesheet" href="/css/dtsel.css">
 </head>
 
 <body>
@@ -67,13 +68,18 @@
         </div>
     </div>
 
-<script src="/js/datepicker.min.js"></script>
+<!--script src="/js/datepicker.min.js"></script-->
+<script src="/js/dtsel.js"></script>
 <script>
-    const picker = datepicker('.dateinput', {
-    formatter: (input, date, instance) => {
-        console.log(input);
-        const value = date.toLocaleDateString();
-        input.value = value
-    }});
+    // const picker = datepicker('.dateinput', {
+    // formatter: (input, date, instance) => {
+    //     console.log(input);
+    //     const value = date.toLocaleDateString();
+    //     input.value = value
+    // }});
+
+    const dateTimePicker = new dtsel.DTS('.dateinput',  {
+        showTime: true
+    });
 </script>
 <%- include('../includes/end.ejs') %>

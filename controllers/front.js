@@ -20,6 +20,7 @@ exports.getIndex = (req, res, next) => {
   Lesson.find()
     .then(lessons => {
       lessons = functions.orderByDate(lessons);
+      lessons = functions.formatDate(lessons);
       res.render('front/home', {
         pageTitle: 'Shalatic',
         path: '/',

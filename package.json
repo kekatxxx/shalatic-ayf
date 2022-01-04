@@ -24,7 +24,6 @@
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "express-session": "^1.17.2",
-    "js-datepicker": "^5.18.0",
     "mongodb": "^4.2.0",
     "mongoose": "^6.0.13",
     "nodemailer": "^6.7.2",

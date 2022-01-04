@@ -97,7 +97,7 @@ exports.getLessons = (req, res, next) => {
     .find()
     .populate('participants.userId')
     .then(lessons => {
-      lessons = functions.orderByDate(lessons);
+      lessons = functions.orderByDate(lessons, true);
       res.render('admin/lessons', {
         lessons: lessons,
         pageTitle: 'Gestione Pratiche',

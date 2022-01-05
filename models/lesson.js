@@ -42,6 +42,24 @@ lessonSchema.methods.reserveSlot = function(userId){
     return this.save();
 }
 
+lessonSchema.methods.cancelSlot = function(userId){
+    let updatedParticipants = [...this.participants];
+    //controllo se l'utente loggato ha gia prenotato un posto
+    if(this.participants.find(part => part.userId && part.userId.toString() === userId.toString())){
+        updatedParticipants = updatedParticipants.filter(val => {
+            if(!val.userId){
+                return true;
+            }
+            return val.userId.toString() !== userId.toString();
+        });
+    }else{
+        console.log('Hai gia prenotato questa pratica.');
+        return false;
+    }
+    this.participants = updatedParticipants;
+    return this.save();
+}
+
 lessonSchema.methods.reserveAnonymSlot = function(name){
     
     const updatedParticipants = [...this.participants];

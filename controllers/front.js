@@ -97,3 +97,20 @@ exports.postReserveSlot = (req, res, next) => {
     })
     .catch(err => {console.log(err)});
 };
+
+exports.postCancelSlot = (req, res, next) => {
+  const lessonId = req.body.lessonId;
+  Lesson.findById(lessonId)
+    .then(lesson => {
+      return lesson.cancelSlot(req.session.user._id);
+    })
+    .then(result => {
+      if(result){
+        req.flash('info', 'Pratica annullata.');
+      }else{
+        req.flash('error', 'Non è stato possibile annullare la pratica.');
+      }
+      res.redirect('/');
+    })
+    .catch(err => {console.log(err)});
+};

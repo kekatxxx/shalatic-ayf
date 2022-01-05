@@ -1,16 +1,22 @@
 <div class="list-group-item text-md-left text-center">
     <div class="row">
         <div class="col-6 text-left">
+            <% if(lesson.participants.find(part => part.userId && part.userId.toString() === userId.toString())){ %>
+                <span class="text-info">
+            <% } %>
             <%= lesson.date %><br/>
+            <% if(lesson.participants.find(part => part.userId && part.userId.toString() === userId.toString())){ %>
+                </span>
+            <% } %>
             <span class="text-secondary"><%= lesson.type %></span>
         </div>
         <div class="d-none d-md-flex col-md-3 text-left">
             <%= lesson.maxSlots-lesson.participants.length %> su <%= lesson.maxSlots %> posti
         </div>
         <div class="col-6 col-md-3 text-md-right text-center">
-            <form action="/reserve-slot" method="POST">
+            <form action="/reserve-slot" method="POST" class="d-inline">
                 <% if(lesson.participants.find(part => part.userId && part.userId.toString() === userId.toString())){ %>
-                    <button type="button" class="btn btn-outline-success disabled btn-block" disabled>Prenotato</button>
+                    <button type="button" class="btn btn-outline-info disabled" disabled>Prenotato</button>
                 <% }else if(lesson.maxSlots <= lesson.participants.length){ %>
                     <button type="button" class="btn btn-outline-danger disabled btn-block" disabled>Limite raggiunto</button>
                 <% }else{ %>   
@@ -19,6 +25,13 @@
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <input type="hidden" name="lessonId" value="<%= lesson._id %>">
             </form>
+            <% if(lesson.participants.find(part => part.userId && part.userId.toString() === userId.toString())){ %>
+            <form action="/cancel-slot" method="POST" class="d-inline">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <input type="hidden" name="lessonId" value="<%= lesson._id %>">
+                <button type="submit" class="btn btn-warning" onclick="return onCancelSlot();">Annulla</button>
+            </form>
+            <% } %>   
         </div>
     </div>    
 </div>

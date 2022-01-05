@@ -17,4 +17,6 @@ router.post('/edit-profile', isAuth, frontController.postEditProfile);
 
 router.post('/reserve-slot', isAuth, frontController.postReserveSlot);
 
+router.post('/cancel-slot', isAuth, frontController.postCancelSlot);
+
 module.exports = router;

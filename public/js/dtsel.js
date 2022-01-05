@@ -208,6 +208,7 @@
         }
         if (this.settings.config.showTime) {
             this.setupFooter();
+            this.setupCloseButton(this);
         }
 
         var self = this;
@@ -483,6 +484,23 @@
             tryAppendChild(footer, this.el.wrapper);
         }
         this.setFooterContent();
+    }
+
+    /**
+     * Button close
+     * @author floychecco
+     */
+    DTBox.prototype.setupCloseButton = function(dtObj){
+        if (this.el.footer) {
+            var footer = this.el.footer;
+            var closeRow = document.createElement('div');
+            closeRow.setAttribute('id', 'dtbox-close');
+            var closeButton = closeRow.appendChild(document.createElement('button'));
+            closeButton.classList.add('btn', 'btn-block', 'mt-2', 'btn-info');
+            closeButton.innerText = 'Fatto';
+            closeButton.onclick = function() { dtObj.visible = false; };
+            footer.appendChild(closeRow);
+        }
     }
 
     DTBox.prototype.setFooterContent = function() {
@@ -906,7 +924,6 @@
         }
         return obj;
     }
-
 
     window.dtsel = Object.create({},{
         DTS: { value: DTS },

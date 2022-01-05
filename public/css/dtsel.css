@@ -1,10 +1,10 @@
 .date-selector-wrapper {
-    width: 200px;
+    width: 250px;
     padding: 3px;
     background-color: #fff;
     box-shadow: 1px 1px 10px 1px #5c5c5c;
     position: absolute;
-    font-size: 14px;
+    font-size: 16px;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
@@ -52,7 +52,7 @@
 }
 .cal-value {
     color: #fff;
-    background-color: #286090;
+    background-color: #17a2b8;
 }
 .cal-cell:hover, .cal-nav:hover {
     background-color: #eee;

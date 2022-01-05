@@ -9,7 +9,9 @@ const router = express.Router();
 
 router.get('/', isAuth, frontController.getIndex);
 
-router.get('/profile', isAuth, frontController.getProfile);
+//router.get('/profile', isAuth, frontController.getProfile);
+
+router.get('/lessons', isAuth, frontController.getLessons);
 
 router.get('/edit-profile', isAuth, frontController.getEditProfile);
 

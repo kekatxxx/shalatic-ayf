@@ -97,26 +97,19 @@ exports.getLessons = (req, res, next) => {
     .find()
     .populate('participants.userId')
     .then(lessons => {
+      const now = new Date();
       lessons = functions.orderByDate(lessons, true);
+      thisMonthLessons = functions.getLessonsInMonth(lessons, now.getMonth(), now.getFullYear());
+      nextMonthLessons = functions.getLessonsInMonth(lessons, now.getMonth()+1, now.getFullYear());
       res.render('admin/lessons', {
-        lessons: lessons,
+        lessons: thisMonthLessons,
+        nmLessons: nextMonthLessons,
         pageTitle: 'Gestione Pratiche',
         path: '/admin/lessons',
         messageInfo: msgInf,
         messageErr: msgErr
       });
     }).catch(err => console.log(err));
-
-  // Lesson
-  //   .find()
-  //   .then(lessons => {
-  //     console.log('getLessons');
-  //     res.render('admin/lessons', {
-  //       lessons: lessons,
-  //       pageTitle: 'Gestione Pratiche',
-  //       path: '/admin/lessons'
-  //     });
-  //   }).catch(err => console.log(err));
 };
 
 exports.postReserveAnonymSlot = (req, res, next) => {

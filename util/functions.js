@@ -33,6 +33,15 @@ exports.getLessonsInNextDays = function(arr, days_start, days_end){
   return array;
 }
 
+exports.getLessonsInMonth = function(arr, month, year){
+  let lessons = arr.slice();
+  lessons = lessons.filter(elem => {
+    const lessonDate = new Date(elem.date);
+    return lessonDate.getMonth() === month && lessonDate.getFullYear() === year;
+  });
+  return lessons;
+}
+
 exports.formatDate = function(arr){
   arr.map((elem) => {
     const nomeGiorno = ["Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"];
@@ -44,4 +53,18 @@ exports.formatDate = function(arr){
     elem.date = nomeGiorno[date.getDay()]+" "+date.getDate()+" "+nomeMese[date.getMonth()]+" " + ora;
   });
   return arr;
+}
+
+exports.getLessonsByUserId = function(arr, userId){
+  let lessons = arr.slice();
+  lessons = lessons.filter(elem => {
+    let userEst = false;
+    elem.participants.forEach(part => {
+      if(part.userId && part.userId.toString() === userId.toString()){
+        userEst = true;
+      }
+    });
+    return userEst;
+  });
+  return lessons;
 }

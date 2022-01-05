@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-6 text-left">
             <% if(lesson.participants.find(part => part.userId && part.userId.toString() === userId.toString())){ %>
-                <span class="text-info">
+                <span class="text-info">&#10003;
             <% } %>
             <%= lesson.date %><br/>
             <% if(lesson.participants.find(part => part.userId && part.userId.toString() === userId.toString())){ %>
@@ -16,7 +16,7 @@
         <div class="col-6 col-md-3 text-md-right text-center">
             <form action="/reserve-slot" method="POST" class="d-inline">
                 <% if(lesson.participants.find(part => part.userId && part.userId.toString() === userId.toString())){ %>
-                    <button type="button" class="btn btn-outline-info disabled" disabled>Prenotato</button>
+                    <button type="button" class="d-none d-md-inline btn btn-outline-info disabled" disabled>Prenotato</button>
                 <% }else if(lesson.maxSlots <= lesson.participants.length){ %>
                     <button type="button" class="btn btn-outline-danger disabled btn-block" disabled>Limite raggiunto</button>
                 <% }else{ %>   

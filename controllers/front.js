@@ -114,3 +114,35 @@ exports.postCancelSlot = (req, res, next) => {
     })
     .catch(err => {console.log(err)});
 };
+
+exports.getLessons = (req, res, next) => {
+  if(!req.session.user){
+    return res.redirect('/');
+  }
+  let msgInf = req.flash('info');
+  let msgErr = req.flash('error');
+  if(msgInf.length > 0){
+    msgInf = msgInf[0];
+  }else{
+    msgInf = null;
+  }
+  if(msgErr.length > 0){
+    msgErr = msgErr[0];
+  }else{
+    msgErr = null;
+  }
+  Lesson
+    .find()
+    .then(lessons => {
+      lessons = functions.orderByDate(lessons, true);
+      userLessons = functions.getLessonsByUserId(lessons, req.session.user._id);
+      res.render('front/lessons', {
+        pageTitle: 'Le mie prenotazioni',
+        path: '/lessons',
+        lessons: userLessons,
+        messageInfo: msgInf,
+        messageErr: msgErr
+      });
+    })
+    .catch(err => {console.log(err)});
+}

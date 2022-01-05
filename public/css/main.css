@@ -9,3 +9,11 @@ nav.navbar{
 .navbar-light .navbar-nav .active{
   color: rgb(23, 162, 184)!important;
 }
+
+.container{
+}
+
+footer{
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}

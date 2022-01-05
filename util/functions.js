@@ -17,11 +17,11 @@ exports.orderByDate = function(arr, includePast){
 
 exports.getLessonsInNextDays = function(arr, days_start, days_end){
   const startDate = new Date(Date.now() + days_start*24*60*60*1000);
-  console.log('sta', startDate);
+  //console.log('sta', startDate);
   let endDate = null;
   if(days_end){
     endDate = new Date(Date.now() + days_end*24*60*60*1000);
-    console.log('end', endDate);
+    //console.log('end', endDate);
   }
   const array = arr.filter(elem => {
     const lessonDate = new Date(elem.date);

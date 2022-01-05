@@ -4,10 +4,10 @@
             <%= lesson.date %><br/>
             <span class="text-secondary"><%= lesson.type %></span>
         </div>
-        <div class="col-3 text-left">
+        <div class="d-none d-md-flex col-md-3 text-left">
             <%= lesson.maxSlots-lesson.participants.length %> su <%= lesson.maxSlots %> posti
         </div>
-        <div class="col-3 text-md-right text-center">
+        <div class="col-6 col-md-3 text-md-right text-center">
             <form action="/reserve-slot" method="POST">
                 <% if(lesson.participants.find(part => part.userId && part.userId.toString() === userId.toString())){ %>
                     <button type="button" class="btn btn-outline-success disabled btn-block" disabled>Prenotato</button>

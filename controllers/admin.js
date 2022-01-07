@@ -12,10 +12,11 @@ exports.getAddLesson = (req, res, next) => {
 
 exports.postAddLesson = (req, res, next) => {
   const date = req.body.date;
+  const time = req.body.time;
   const slots = req.body.slots;
   const type = req.body.type;
   const lesson = new Lesson({
-    date: date,
+    date: new Date(date.split('/')[2], date.split('/')[1]-1, date.split('/')[0], time.split(':')[0], time.split(':')[1], 0),
     maxSlots: slots,
     type: type,
     participants: []

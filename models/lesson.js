@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const lessonSchema = new Schema({
     date: {
-        type: String,
+        type: Date,
         required: true
     },
     type: {

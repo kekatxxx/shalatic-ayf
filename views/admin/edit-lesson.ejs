@@ -1,6 +1,6 @@
 <%- include('../includes/head.ejs') %>
-    <!--link rel="stylesheet" href="/css/datepicker.min.css"-->
-    <link rel="stylesheet" href="/css/dtsel.css">
+    <link rel="stylesheet" href="/css/datepicker.min.css">
+    <!--link rel="stylesheet" href="/css/dtsel.css"-->
 </head>
 
 <body>
@@ -22,6 +22,19 @@
                             <div class="form-group">
                                 <label for="date">Data pratica</label>
                                 <input class="form-control dateinput" type="text" name="date" id="date" value="<%= editMode ? lesson.date : '' %>" class="datefield">
+                            </div>
+                            <div class="form-group">
+                                <label for="time">Ora pratica</label>
+                                <select class="form-control" name="time" id="time">
+                                    <% for(i=7; i <= 19; i++){ %>
+                                        <option
+                                            <%= (editMode && lesson.maxSlots == i) ? 'selected="selected"' : '' %>
+                                        ><%= i %>:00</option>
+                                        <option
+                                            <%= (editMode && lesson.maxSlots == i) ? 'selected="selected"' : '' %>
+                                        ><%= i %>:30</option>
+                                    <% } %>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="slots">Num partecipanti max</label>
@@ -68,19 +81,19 @@
         </div>
     </div>
 
-<!--script src="/js/datepicker.min.js"></script-->
-<script src="/js/dtsel.js"></script>
+<script src="/js/datepicker.min.js"></script>
+<!--script src="/js/dtsel.js"></script-->
 <script>
-    // const picker = datepicker('.dateinput', {
-    // formatter: (input, date, instance) => {
-    //     console.log(input);
-    //     const value = date.toLocaleDateString();
-    //     input.value = value
-    // }});
+    const picker = datepicker('.dateinput', {
+    formatter: (input, date, instance) => {
+        console.log(input);
+        const value = date.toLocaleDateString();
+        input.value = value
+    }});
 
-    const dateTimePicker = new dtsel.DTS('.dateinput',  {
-        showTime: true
-    });
+    // const dateTimePicker = new dtsel.DTS('.dateinput',  {
+    //     showTime: true
+    // });
 
 </script>
 <%- include('../includes/end.ejs') %>

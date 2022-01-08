@@ -1,6 +1,6 @@
 const Lesson = require('../models/lesson');
 const User = require('../models/user');
-const functions = require('../util/functions');
+const helpers = require('../util/helpers');
 /**
  * getIndex()
  */
@@ -18,18 +18,24 @@ exports.getIndex = (req, res, next) => {
     msgErr = null;
   }
   Lesson.find()
-    .then(lessons => {
-      lessons = functions.orderByDate(lessons);
-      firstWeekLes = functions.getLessonsInNextDays(lessons, 0, 7);
-      secondweekLes = functions.getLessonsInNextDays(lessons, 7, 14);
-      
-      res.render('front/home', {
-        pageTitle: 'Shalatic',
-        path: '/',
-        lessons: functions.formatDate(firstWeekLes),
-        swLessons: functions.formatDate(secondweekLes),
-        messageInfo: msgInf,
-        messageErr: msgErr
+    .gte('date', new Date())
+    .lte('date', new Date(new Date().getTime()+(7*24*60*60*1000)))
+    .sort('date')
+    .then(firstWeekles => {
+      Lesson.find()
+      .gt('date', new Date(new Date().getTime()+(7*24*60*60*1000)))
+      .lte('date', new Date(new Date().getTime()+(14*24*60*60*1000)))
+      .sort('date')
+      .then(secondWeekles => {
+        res.render('front/home', {
+          pageTitle: 'Shalatic',
+          path: '/',
+          firstWeekles: firstWeekles,
+          secondWeekles: secondWeekles,
+          messageInfo: msgInf,
+          messageErr: msgErr,
+          helpers: helpers,
+        });
       });
     })
     .catch(err => {console.log(err)});
@@ -131,17 +137,19 @@ exports.getLessons = (req, res, next) => {
   }else{
     msgErr = null;
   }
+  //Blog.$where('this.username.indexOf("val") !== -1').exec(function (err, docs) {});
   Lesson
     .find()
+    .sort('date')
     .then(lessons => {
-      lessons = functions.orderByDate(lessons, true);
-      userLessons = functions.getLessonsByUserId(lessons, req.session.user._id);
+      userLessons = helpers.getLessonsByUserId(lessons, req.session.user._id);
       res.render('front/lessons', {
         pageTitle: 'Le mie prenotazioni',
         path: '/lessons',
         lessons: userLessons,
         messageInfo: msgInf,
-        messageErr: msgErr
+        messageErr: msgErr,
+        helpers: helpers,
       });
     })
     .catch(err => {console.log(err)});

@@ -1,6 +1,6 @@
 const Lesson = require('../models/lesson');
 const User = require('../models/user');
-const functions = require('../util/functions');
+const helpers = require('../util/helpers');
 
 exports.getAddLesson = (req, res, next) => {
   res.render('admin/edit-lesson', {
@@ -34,12 +34,19 @@ exports.postAddLesson = (req, res, next) => {
 exports.postEditLesson = (req, res, next) => {
   const id = req.body.id;
   const updDate = req.body.date;
+  const updTime = req.body.time;
   const updSlots = req.body.slots;
   const updType = req.body.type;
   
   Lesson.findById(id)
     .then(lesson => {
-      lesson.date = updDate;
+      lesson.date = new Date(
+        updDate.split('/')[2], 
+        updDate.split('/')[1]-1, 
+        updDate.split('/')[0],
+        updTime.split(':')[0],
+        updTime.split(':')[1]
+        );
       lesson.maxSlots = updSlots;
       lesson.type = updType;
       return lesson.save();
@@ -67,6 +74,7 @@ exports.getEditLesson = (req, res, next) => {
         pageTitle: 'Modifica pratica',
         path: '/admin/lessons',
         editMode: true,
+        helpers: helpers,
         lesson: lesson
       })
     }).catch(err => console.log(err));
@@ -84,6 +92,7 @@ exports.postDeleteLesson = (req, res, next) => {
 exports.getLessons = (req, res, next) => {
   let msgInf = req.flash('info');
   let msgErr = req.flash('error');
+  const now = new Date();
   if(msgInf.length > 0){
     msgInf = msgInf[0];
   }else{
@@ -94,22 +103,29 @@ exports.getLessons = (req, res, next) => {
   }else{
     msgErr = null;
   }
-  Lesson
-    .find()
+  Lesson.find()
     .populate('participants.userId')
+    .gte('date', new Date(now.getFullYear(), now.getMonth(), 1))
+    .lte('date', new Date(now.getFullYear(), now.getMonth(), 31))
+    .sort('date')
     .then(lessons => {
-      const now = new Date();
-      lessons = functions.orderByDate(lessons, true);
-      thisMonthLessons = functions.getLessonsInMonth(lessons, now.getMonth(), now.getFullYear());
-      nextMonthLessons = functions.getLessonsInMonth(lessons, now.getMonth()+1, now.getFullYear());
-      res.render('admin/lessons', {
-        lessons: thisMonthLessons,
-        nmLessons: nextMonthLessons,
-        pageTitle: 'Gestione Pratiche',
-        path: '/admin/lessons',
-        messageInfo: msgInf,
-        messageErr: msgErr
-      });
+      Lesson.find()
+        .populate('participants.userId')
+        .gte('date', new Date(now.getFullYear(), now.getMonth()+1, 1))
+        .lte('date', new Date(now.getFullYear(), now.getMonth()+1, 31))
+        .sort('date')
+        .then(nmLessons => {
+          res.render('admin/lessons', {
+            lessons: lessons,
+            nmLessons: nmLessons,
+            pageTitle: 'Gestione Pratiche',
+            path: '/admin/lessons',
+            messageInfo: msgInf,
+            messageErr: msgErr,
+            helpers: helpers
+          });
+        })
+        .catch(err => console.log(err));
     }).catch(err => console.log(err));
 };
 
@@ -147,6 +163,25 @@ exports.getUsers = (req, res, next) => {
         path: '/admin/users'
       });
     }).catch(err => console.log(err));
+};
+
+exports.getUserLessons = (req, res, next) => {
+  User.findById(req.params.userId)
+    .then(user => {
+      Lesson
+        .find()
+        .sort('date')
+        .then(lessons => {
+          userLessons = functions.getLessonsByUserId(lessons, user._id);
+          res.render('admin/user-lessons', {
+            pageTitle: 'Prenotazioni allievo',
+            path: '/admin/users',
+            user: user,
+            lessons: userLessons,
+          });
+        })
+    })
+    .catch(err => {console.log(err)});
 };
 
 exports.postDeleteUser = (req, res, next) => {

@@ -10,22 +10,22 @@
         <% if (messageErr) { %>
             <div class="mt-4 alert alert-danger" role="alert"><%= messageErr %></div>
         <% } %>
-        <% if (lessons.length > 0) { %>
+        <% if (firstWeekles.length > 0) { %>
 
             <h5 class="mt-4 text-secondary">Prossime pratiche</h5>
 
             <div class="list-group mt-4">
-            <% for (let lesson of lessons) { %>
+            <% for (let lesson of firstWeekles) { %>
                 <%- include('../includes/lesson-item.ejs', {lesson: lesson}) %>
             <% } %>
             </div>
 
-            <% if (swLessons.length > 0) { %>
+            <% if (secondWeekles.length > 0) { %>
 
                 <h5 class="mt-4 text-secondary">Settimana successiva</h5>
 
                 <div class="list-group mt-4">
-                <% for (let lesson of swLessons) { %>
+                <% for (let lesson of secondWeekles) { %>
                     <%- include('../includes/lesson-item.ejs', {lesson: lesson}) %>
                 <% } %>
                 </div>
@@ -42,6 +42,11 @@
             }
             function onCancelSlot(){
                 return confirm("Annullare la pratica?");
+            }
+            function formatDate(date){
+                const nomeGiorno = ["Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"];
+                const nomeMese = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
+                return nomeGiorno[date.getDay()]+" "+date.getDate()+" "+nomeMese[date.getMonth()]+" " + date.getHours() + ":" + date.getMinutes();
             }
         </script>
 <%- include('../includes/end.ejs') %>

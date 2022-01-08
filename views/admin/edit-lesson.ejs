@@ -21,18 +21,28 @@
                             <% } %>
                             <div class="form-group">
                                 <label for="date">Data pratica</label>
-                                <input class="form-control dateinput" type="text" name="date" id="date" value="<%= editMode ? lesson.date : '' %>" class="datefield">
+                                <input 
+                                    class="form-control dateinput" 
+                                    type="text" 
+                                    name="date" 
+                                    id="date" 
+                                    value="<%= editMode ? helpers.getInputFormDate(lesson.date) : '' %>" 
+                                    class="datefield"
+                                    >
                             </div>
                             <div class="form-group">
                                 <label for="time">Ora pratica</label>
                                 <select class="form-control" name="time" id="time">
-                                    <% for(i=7; i <= 19; i++){ %>
+                                    <% for(i=7; i <= 19; i++){ 
+                                        let clock = i+":00";
+                                        let half = i+":30";
+                                        %>
                                         <option
-                                            <%= (editMode && lesson.maxSlots == i) ? 'selected="selected"' : '' %>
-                                        ><%= i %>:00</option>
+                                            <%= (editMode && helpers.getInputFormTime(lesson.date) == clock) ? 'selected="selected"' : '' %>
+                                        ><%= clock %></option>
                                         <option
-                                            <%= (editMode && lesson.maxSlots == i) ? 'selected="selected"' : '' %>
-                                        ><%= i %>:30</option>
+                                            <%= (editMode && helpers.getInputFormTime(lesson.date) == half) ? 'selected="selected"' : '' %>
+                                        ><%= half %></option>
                                     <% } %>
                                 </select>
                             </div>
@@ -86,9 +96,9 @@
 <script>
     const picker = datepicker('.dateinput', {
     formatter: (input, date, instance) => {
-        console.log(input);
+        console.log('input');
         const value = date.toLocaleDateString();
-        input.value = value
+        input.value = value;
     }});
 
     // const dateTimePicker = new dtsel.DTS('.dateinput',  {

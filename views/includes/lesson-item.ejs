@@ -4,7 +4,7 @@
             <% if(lesson.participants.find(part => part.userId && part.userId.toString() === userId.toString())){ %>
                 <span class="text-info">&#10003;
             <% } %>
-            <%= lesson.date %><br/>
+            <%- helpers.formatDate(lesson.date); %><br/>
             <% if(lesson.participants.find(part => part.userId && part.userId.toString() === userId.toString())){ %>
                 </span>
             <% } %>

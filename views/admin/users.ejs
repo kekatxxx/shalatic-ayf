@@ -23,6 +23,7 @@
                                     
                                 </div>
                                 <div class="col-md-3 text-md-right text-center">
+                                    <a href="/admin/user-lessons/<%= user._id %>" class="btn btn-sm btn-outline-info">Pratiche prenotate</a>
                                     <% if(!user.superuser){ %>
                                     <form action="/admin/delete-user" method="POST" style="display: inline;">
                                         <button onclick="return onDeleteUser();" class="btn btn-sm btn-outline-danger" type="submit">Elimina</button>

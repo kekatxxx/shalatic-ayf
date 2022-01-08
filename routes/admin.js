@@ -26,4 +26,6 @@ router.get('/users', isAuth, isSuperuser, adminController.getUsers);
 
 router.post('/delete-user', isAuth, isSuperuser, adminController.postDeleteUser);
 
+router.get('/user-lessons/:userId', isAuth, isSuperuser, adminController.getUserLessons);
+
 module.exports = router;

@@ -1,0 +1,21 @@
+<%- include('../includes/head.ejs') %>
+</head>
+
+<body>
+    <%- include('../includes/nav.ejs') %>
+    <div class="container">
+        <% if (lessons.length > 0) { %>
+
+            <h5 class="mt-4 text-secondary">Prenotazioni allievo <%= user.name %></h5>
+
+            <div class="list-group mt-4">
+            <% for (let lesson of lessons) { %>
+                <%- include('../includes/my-lesson-item.ejs', {lesson: lesson}) %>
+            <% } %>
+            </div>
+
+        <% } else { %>
+            <h4>Non hai prenotato ancora nessuna pratica.</h4>
+        <% } %>
+    </div>
+<%- include('../includes/end.ejs') %>

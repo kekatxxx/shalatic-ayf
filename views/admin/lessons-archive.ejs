@@ -1,0 +1,53 @@
+<%- include('../includes/head.ejs') %>
+    </head>
+
+    <body>
+        <%- include('../includes/nav.ejs') %>
+
+            <div class="container">
+
+                    <div class="btn-group mt-4" role="group" ">
+                        <a type="button" class="btn btn-secondary" href="/admin/lessons">Prossime</button>
+                        <a type="button" class="btn btn-secondary active" href="/admin/lessons-archive">Tutte le pratiche</a>
+                    </div>
+    
+                    <div class="btn-toolbar d-inline" role="group">
+                        <div class="btn-group mt-4 mr-2" role="group" aria-label="First group">
+                            <% if(currPage !== 1 && prevPage !== 1){ %>
+                                <a href="?page=1" type="button" class="btn btn-secondary">1</a>
+                            <% } %>
+                            <% if(hasPrevPage){ %>
+                                <a href="?page=<%= prevPage %>" type="button" class="btn btn-secondary"><%= prevPage %></a>
+                            <% } %>
+                            <a href="?page=<%= currPage %>" type="button" class="btn btn-secondary active"><%= currPage %></a>
+                            <% if(hasNextPage){ %>
+                                <a href="?page=<%= nextPage %>" type="button" class="btn btn-secondary"><%= nextPage %></a>
+                            <% } %>
+                            <% if(currPage !== lastPage && nextPage !== lastPage){ %>
+                                <a href="?page=<%= lastPage %>" type="button" class="btn btn-secondary"><%= lastPage %></a>
+                            <% } %>
+                            </div>
+                    </div>
+
+                <% if (lessons.length > 0) { %>
+
+                    <h5 class="mt-4 text-secondary">Archivio pratiche</h5>
+
+                    <div class="list-group mt-4">
+                        <% for (let lesson of lessons) { %>
+                            <%- include('../includes/lesson-item-admin.ejs', {lesson: lesson, includeYear: true}) %> 
+                        <% } %>
+                    </div>
+                
+                <% } else { %>
+                    <h1>Nessuna pratica trovata!</h1>
+                <% } %>
+            </div>
+
+        <script>
+            function onDeleteLesson(){
+                return confirm("Eliminare la pratica?");
+            }
+        </script>
+
+        <%- include('../includes/end.ejs') %>

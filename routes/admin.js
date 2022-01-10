@@ -20,6 +20,8 @@ router.post('/delete-lesson', isAuth, isSuperuser, adminController.postDeleteLes
 
 router.get('/lessons', isAuth, isSuperuser, adminController.getLessons);
 
+router.get('/lessons-archive', isAuth, isSuperuser, adminController.getLessonsArchive);
+
 router.post('/reserve-anonym-slot', isAuth, adminController.postReserveAnonymSlot);
 
 router.get('/users', isAuth, isSuperuser, adminController.getUsers);

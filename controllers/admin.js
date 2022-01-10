@@ -1,6 +1,7 @@
 const Lesson = require('../models/lesson');
 const User = require('../models/user');
 const helpers = require('../util/helpers');
+const constants = require('../util/constants');
 
 exports.getAddLesson = (req, res, next) => {
   res.render('admin/edit-lesson', {
@@ -89,6 +90,42 @@ exports.postDeleteLesson = (req, res, next) => {
     .catch(err => console.log(err));
 };
 
+exports.getLessonsArchive = (req, res, next) => {
+  const page = +req.query.page || 1;
+  const ipp = constants.ITEMS_PER_PAGE;
+  let totLessons;
+
+  Lesson.find()
+    .countDocuments()
+    .then(numLessons => {
+      totLessons = numLessons;
+      return Lesson.find()
+        .populate('participants.userId')
+        .sort('date')
+        .skip((page -1) * ipp)
+        .limit(ipp);
+    })
+    .then(lessons => {
+      res.render('admin/lessons-archive', {
+        lessons: lessons,
+        pageTitle: 'Archivio Pratiche',
+        path: '/admin/lessons',
+        currPage: page,
+        hasNextPage: ipp * page < totLessons,
+        hasPrevPage: page > 1,
+        nextPage: page + 1,
+        prevPage: page -1,
+        lastPage: Math.ceil(totLessons / ipp),
+        helpers: helpers
+      });
+    })
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
+};
+
 exports.getLessons = (req, res, next) => {
   let msgInf = req.flash('info');
   let msgErr = req.flash('error');
@@ -103,30 +140,32 @@ exports.getLessons = (req, res, next) => {
   }else{
     msgErr = null;
   }
+  //pratiche mese attuale
   Lesson.find()
-    .populate('participants.userId')
-    .gte('date', new Date(now.getFullYear(), now.getMonth(), 1))
-    .lte('date', new Date(now.getFullYear(), now.getMonth(), 31))
-    .sort('date')
-    .then(lessons => {
-      Lesson.find()
-        .populate('participants.userId')
-        .gte('date', new Date(now.getFullYear(), now.getMonth()+1, 1))
-        .lte('date', new Date(now.getFullYear(), now.getMonth()+1, 31))
-        .sort('date')
-        .then(nmLessons => {
-          res.render('admin/lessons', {
-            lessons: lessons,
-            nmLessons: nmLessons,
-            pageTitle: 'Gestione Pratiche',
-            path: '/admin/lessons',
-            messageInfo: msgInf,
-            messageErr: msgErr,
-            helpers: helpers
-          });
-        })
-        .catch(err => console.log(err));
-    }).catch(err => console.log(err));
+  .populate('participants.userId')
+  .gte('date', new Date(now.getFullYear(), now.getMonth(), 1))
+  .lte('date', new Date(now.getFullYear(), now.getMonth(), 31))
+  .sort('date')
+  .then(lessons => {
+    //pratiche del mese successivo
+    Lesson.find()
+      .populate('participants.userId')
+      .gte('date', new Date(now.getFullYear(), now.getMonth()+1, 1))
+      .lte('date', new Date(now.getFullYear(), now.getMonth()+1, 31))
+      .sort('date')
+      .then(nmLessons => {
+        res.render('admin/lessons', {
+          lessons: lessons,
+          nmLessons: nmLessons,
+          pageTitle: 'Gestione Pratiche',
+          path: '/admin/lessons',
+          messageInfo: msgInf,
+          messageErr: msgErr,
+          helpers: helpers
+        });
+      })
+      .catch(err => console.log(err));
+  }).catch(err => console.log(err));
 };
 
 exports.postReserveAnonymSlot = (req, res, next) => {
@@ -172,12 +211,15 @@ exports.getUserLessons = (req, res, next) => {
         .find()
         .sort('date')
         .then(lessons => {
-          userLessons = functions.getLessonsByUserId(lessons, user._id);
+          //console.log(lessons);
+          userLessons = helpers.getLessonsByUserId(lessons, user._id);
+          console.log(userLessons);
           res.render('admin/user-lessons', {
             pageTitle: 'Prenotazioni allievo',
             path: '/admin/users',
             user: user,
             lessons: userLessons,
+            helpers: helpers
           });
         })
     })

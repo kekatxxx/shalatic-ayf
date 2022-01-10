@@ -12,13 +12,18 @@
                     <div class="mt-4 alert alert-danger" role="alert"><%= messageErr %></div>
                 <% } %>
 
+                <div class="btn-group mt-4" role="group" ">
+                    <a type="button" class="btn btn-secondary active" href="/admin/lessons">Prossime</button>
+                    <a type="button" class="btn btn-secondary" href="/admin/lessons-archive">Tutte le pratiche</a>
+                </div>
+
                 <% if (lessons.length > 0) { %>
 
                     <h5 class="mt-4 text-secondary">Pratiche di questo mese</h5>
 
                     <div class="list-group mt-4">
                         <% for (let lesson of lessons) { %>
-                            <%- include('../includes/lesson-item-admin.ejs', {lesson: lesson}) %> 
+                            <%- include('../includes/lesson-item-admin.ejs', {lesson: lesson, includeYear: false}) %> 
                         <% } %>
                     </div>
 
@@ -27,7 +32,7 @@
                         <h5 class="mt-4 text-secondary">Pratiche del prossimo mese</h5>
                         <div class="list-group mt-4">
                             <% for (let lesson of nmLessons) { %>
-                                <%- include('../includes/lesson-item-admin.ejs', {lesson: lesson}) %> 
+                                <%- include('../includes/lesson-item-admin.ejs', {lesson: lesson, includeYear: false}) %> 
                             <% } %>
                         </div>
 

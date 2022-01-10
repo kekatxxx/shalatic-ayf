@@ -18,4 +18,9 @@
             <h4>Non hai prenotato ancora nessuna pratica.</h4>
         <% } %>
     </div>
+    <script>
+        function onCancelSlot(){
+            return confirm("Annullare la pratica?");
+        }
+    </script>
 <%- include('../includes/end.ejs') %>

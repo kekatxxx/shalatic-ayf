@@ -17,3 +17,7 @@ footer{
   padding-top: 3rem;
   padding-bottom: 3rem;
 }
+
+footer img{
+  height: 70px;
+}

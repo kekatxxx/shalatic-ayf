@@ -162,8 +162,8 @@ exports.postSignup = (req, res, next) => {
 
       console.log(constants.APP_URL);
 
-      const html_content = `<h4>Astanga Firenze - Prenotazione Shala</h4>
-        <p>Ti sei registrato correttamente al gestionale di prenotazione.</p>
+      const html_content = `<h4>Astanga Firenze Prenotazioni</h4>
+        <p>Ti sei registrato correttamente al gestionale di prenotazione Shala.</p>
         <p><a href="${constants.APP_URL}">Accedi al gestionale</a></p>
         <p><em>Lo staff di Astanga Firenze</em></p>`;
 
@@ -171,7 +171,7 @@ exports.postSignup = (req, res, next) => {
       res.redirect('/login');
       return transporter.sendMail({
         to: email,
-        from: 'prenota@astangafirenze.it',
+        from: 'Astanga Firenze Prenotazioni prenota@astangafirenze.it',
         subject: 'Astanga Firenze Prenotazioni - Regitrazione effettuata',
         html: html_content
       });
@@ -221,14 +221,16 @@ exports.postReset = (req, res, next) => {
       })
       .then(result => {
         res.redirect('/');
-        transporter.sendMail({
-          to: req.body.email,
-          from: 'checcobarbieri@gmail.com',
-          subject: 'Password reset',
-          html: `
+
+        const html_content = `<h4>Astanga Firenze Prenotazioni - Prenotazione Shala</h4>
           <p>Hai richiesto una nuova password</p>
           <p>Clicca su questo <a href="${constants.APP_URL}reset/${token}">link</a> per impostarla.</p>
-          `
+          <p><em>Lo staff di Astanga Firenze</em></p>`;
+        transporter.sendMail({
+          to: req.body.email,
+          from: 'Astanga Firenze Prenotazioni prenota@astangafirenze.it',
+          subject: 'Astanga Firenze - Password reset',
+          html: html_content
         });
       })
       .catch(err => {

@@ -9,4 +9,4 @@ exports.SUPERUSER_MAIL = [
 
 exports.APP_URL = environment === 'dev' ? 'http://localhost:3000/' : 'http://161.35.145.112/';
 
-exports.ITEMS_PER_PAGE = 20;
+exports.ITEMS_PER_PAGE = 10;

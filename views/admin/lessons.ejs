@@ -19,24 +19,13 @@
 
                 <% if (lessons.length > 0) { %>
 
-                    <h5 class="mt-4 text-secondary">Pratiche di questo mese</h5>
+                    <h5 class="mt-4 text-secondary">Prossime pratiche</h5>
 
                     <div class="list-group mt-4">
                         <% for (let lesson of lessons) { %>
                             <%- include('../includes/lesson-item-admin.ejs', {lesson: lesson, includeYear: false}) %> 
                         <% } %>
                     </div>
-
-                    <% if (nmLessons.length > 0) { %>
-
-                        <h5 class="mt-4 text-secondary">Pratiche del prossimo mese</h5>
-                        <div class="list-group mt-4">
-                            <% for (let lesson of nmLessons) { %>
-                                <%- include('../includes/lesson-item-admin.ejs', {lesson: lesson, includeYear: false}) %> 
-                            <% } %>
-                        </div>
-
-                    <% } %>
                 
                 <% } else { %>
                     <h1>Nessuna pratica trovata!</h1>

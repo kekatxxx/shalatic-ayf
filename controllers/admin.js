@@ -140,31 +140,21 @@ exports.getLessons = (req, res, next) => {
   }else{
     msgErr = null;
   }
-  //pratiche mese attuale
+  //prossime pratiche (+30 giorni)
   Lesson.find()
   .populate('participants.userId')
-  .gte('date', new Date(now.getFullYear(), now.getMonth(), 1))
-  .lte('date', new Date(now.getFullYear(), now.getMonth(), 31))
+  .gte('date', now)
+  .lte('date', new Date(now.getTime()+ 30*24*60*60*1000))
   .sort('date')
   .then(lessons => {
-    //pratiche del mese successivo
-    Lesson.find()
-      .populate('participants.userId')
-      .gte('date', new Date(now.getFullYear(), now.getMonth()+1, 1))
-      .lte('date', new Date(now.getFullYear(), now.getMonth()+1, 31))
-      .sort('date')
-      .then(nmLessons => {
-        res.render('admin/lessons', {
-          lessons: lessons,
-          nmLessons: nmLessons,
-          pageTitle: 'Gestione Pratiche',
-          path: '/admin/lessons',
-          messageInfo: msgInf,
-          messageErr: msgErr,
-          helpers: helpers
-        });
-      })
-      .catch(err => console.log(err));
+    res.render('admin/lessons', {
+      lessons: lessons,
+      pageTitle: 'Gestione Pratiche',
+      path: '/admin/lessons',
+      messageInfo: msgInf,
+      messageErr: msgErr,
+      helpers: helpers
+    });
   }).catch(err => console.log(err));
 };
 

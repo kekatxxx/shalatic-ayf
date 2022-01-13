@@ -159,13 +159,21 @@ exports.postSignup = (req, res, next) => {
       return user.save();
     })
     .then(result => {
+
+      console.log(constants.APP_URL);
+
+      const html_content = `<h4>Astanga Firenze - Prenotazione Shala</h4>
+        <p>Ti sei registrato correttamente al gestionale di prenotazione.</p>
+        <p><a href="${constants.APP_URL}">Accedi al gestionale</a></p>
+        <p><em>Lo staff di Astanga Firenze</em></p>`;
+
       req.flash('info', 'Registrazione effettuata! Adesso puoi accedere con i tuoi dati. ');
       res.redirect('/login');
       return transporter.sendMail({
         to: email,
-        from: 'checcobarbieri@gmail.com',
-        subject: 'Signup succeded!',
-        html: '<h1>You successfully signed up!</h1>'
+        from: 'prenota@astangafirenze.it',
+        subject: 'Astanga Firenze Prenotazioni - Regitrazione effettuata',
+        html: html_content
       });
     })
     .catch(err => {

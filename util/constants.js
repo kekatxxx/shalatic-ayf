@@ -7,6 +7,6 @@ exports.SUPERUSER_MAIL = [
     'astangafirenze@gmail.com'
 ];
 
-exports.APP_URL = environment === 'dev' ? 'http://localhost:3000/' : 'http://161.35.145.112/';
+exports.APP_URL = environment.environment === 'dev' ? 'http://localhost:3000/' : 'http://161.35.145.112/';
 
 exports.ITEMS_PER_PAGE = 10;

@@ -82,6 +82,8 @@ app.use((req, res, next) => {
  * setting local variables to all views
  */
 app.use((req, res, next) => {
+    console.log(constants);
+    res.locals.appUrl = constants.APP_URL;
     res.locals.isAuthenticated = req.session.isLoggedIn;
     if(req.session.isLoggedIn){
         res.locals.isSuperuser = req.session.user.superuser ? true : null;

@@ -1,1 +1,1 @@
-module.exports = environment = 'dev';
+module.exports = 'dev';

@@ -172,7 +172,7 @@ exports.postSignup = (req, res, next) => {
       return transporter.sendMail({
         to: email,
         from: 'Astanga Firenze Prenotazioni prenota@astangafirenze.it',
-        subject: 'Astanga Firenze Prenotazioni - Regitrazione effettuata',
+        subject: 'Regitrazione effettuata - Astanga Firenze Prenotazioni',
         html: html_content
       });
     })
@@ -229,7 +229,7 @@ exports.postReset = (req, res, next) => {
         transporter.sendMail({
           to: req.body.email,
           from: 'Astanga Firenze Prenotazioni prenota@astangafirenze.it',
-          subject: 'Astanga Firenze - Password reset',
+          subject: 'Password reset - Astanga Firenze Prenotazioni',
           html: html_content
         });
       })

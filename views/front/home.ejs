@@ -33,7 +33,7 @@
             <% } %>
 
         <% } else { %>
-            <div class="mt-4 alert alert-secondary" role="alert">Nessuna pratica trovata!</div>>
+            <div class="mt-4 alert alert-secondary" role="alert">Nessuna pratica trovata!</div>
         <% } %>
         </div>
         <script>
@@ -42,11 +42,6 @@
             }
             function onCancelSlot(){
                 return confirm("Annullare la pratica?");
-            }
-            function formatDate(date){
-                const nomeGiorno = ["Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"];
-                const nomeMese = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
-                return nomeGiorno[date.getDay()]+" "+date.getDate()+" "+nomeMese[date.getMonth()]+" " + date.getHours() + ":" + date.getMinutes();
             }
         </script>
 <%- include('../includes/end.ejs') %>

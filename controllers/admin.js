@@ -15,7 +15,10 @@ exports.postAddLesson = (req, res, next) => {
   const date = req.body.date;
   const time = req.body.time;
   const slots = req.body.slots;
-  const type = req.body.type;
+  let type = req.body.type;
+  if(req.body.type === 'altro'){
+    type = req.body.type_altro;
+  }
   const lesson = new Lesson({
     date: new Date(date.split('/')[2], date.split('/')[1]-1, date.split('/')[0], time.split(':')[0], time.split(':')[1], 0),
     maxSlots: slots,
@@ -25,7 +28,7 @@ exports.postAddLesson = (req, res, next) => {
   lesson
     .save()
     .then(result => {
-      console.log('Lesson created.');
+      console.log('Lesson created.', result);
       res.redirect('/admin/lessons'); 
     }).catch(err => {
       console.log(err);
@@ -37,7 +40,10 @@ exports.postEditLesson = (req, res, next) => {
   const updDate = req.body.date;
   const updTime = req.body.time;
   const updSlots = req.body.slots;
-  const updType = req.body.type;
+  let updType = req.body.type;
+  if(req.body.type === 'altro'){
+    updType = req.body.type_altro;
+  }
   
   Lesson.findById(id)
     .then(lesson => {
@@ -53,7 +59,7 @@ exports.postEditLesson = (req, res, next) => {
       return lesson.save();
     })
     .then(result => {
-      console.log('Lesson modified.');
+      console.log('Lesson modified.', result);
       res.redirect('/admin/lessons'); 
     }).catch(err => {
       console.log(err);

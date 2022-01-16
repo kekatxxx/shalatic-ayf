@@ -58,6 +58,7 @@
                             </div>
                             <div class="form-check">
                                 <input 
+                                    onclick="toggleAltroInput();"
                                     class="form-check-input" 
                                     type="radio" 
                                     name="type" 
@@ -71,6 +72,7 @@
                             </div>
                             <div class="form-check">
                                 <input 
+                                    onclick="toggleAltroInput();"
                                     class="form-check-input" 
                                     type="radio" 
                                     name="type" 
@@ -81,6 +83,30 @@
                                 <label class="form-check-label" for="type-g">
                                     Guidata
                                 </label>
+                            </div>
+                            <div class="form-check">
+                                <input 
+                                    onclick="toggleAltroInput();"
+                                    class="form-check-input" 
+                                    type="radio" 
+                                    name="type" 
+                                    id="type-a" 
+                                    value="altro"
+                                    <%= (editMode && lesson.type !== 'guidata' && lesson.type !== 'mysore') ? 'checked' : '' %>
+                                    />
+                                <label class="form-check-label" for="type-a">
+                                    altro
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <input 
+                                    class="form-control"
+                                    type="text"
+                                    name="type_altro"
+                                    id="type_altro"
+                                    value="<%= (editMode && lesson.type !== 'guidata' && lesson.type !== 'mysore') ? lesson.type : '' %>"
+                                    required
+                                    />
                             </div>
                             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                             <button class="btn btn-info mt-3" type="submit"><%= editMode ? 'Modifica pratica' : 'Aggiungi pratica'%></button>
@@ -100,6 +126,14 @@
         const value = date.toLocaleDateString();
         input.value = value;
     }});
+
+    const toggleAltroInput = () => {
+        document.getElementById("type_altro").style.display = document.getElementById("type-a").checked ? 'block':'none';
+    }
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        toggleAltroInput();
+    });
 
     // const dateTimePicker = new dtsel.DTS('.dateinput',  {
     //     showTime: true

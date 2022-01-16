@@ -224,7 +224,7 @@ exports.postReset = (req, res, next) => {
 
         const html_content = `<h4>Astanga Firenze Prenotazioni - Prenotazione Shala</h4>
           <p>Hai richiesto una nuova password</p>
-          <p>Clicca su questo <a href="${constants.APP_URL}reset/${token}">link</a> per impostarla.</p>
+          <p>Clicca su questo <a href="${constants.APP_URL}/reset/${token}">link</a> per impostarla.</p>
           <p><em>Lo staff di Astanga Firenze</em></p>`;
         transporter.sendMail({
           to: req.body.email,

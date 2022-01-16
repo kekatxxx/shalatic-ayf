@@ -7,6 +7,6 @@ exports.SUPERUSER_MAIL = [
     'astangafirenze@gmail.com'
 ];
 
-exports.APP_URL = environment === 'dev' ? 'http://localhost:3000/' : 'http://ayf.prenotashala.online';
+exports.APP_URL = environment === 'dev' ? 'http://localhost:3000' : 'http://ayf.prenotashala.online';
 
 exports.ITEMS_PER_PAGE = 10;

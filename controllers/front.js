@@ -1,6 +1,7 @@
 const Lesson = require('../models/lesson');
 const User = require('../models/user');
 const helpers = require('../util/helpers');
+const constants = require('../util/constants');
 /**
  * getIndex()
  */
@@ -28,7 +29,7 @@ exports.getIndex = (req, res, next) => {
       .sort('date')
       .then(secondWeekles => {
         res.render('front/home', {
-          pageTitle: 'Shalatic',
+          pageTitle: constants.APP_TITLE,
           path: '/',
           firstWeekles: firstWeekles,
           secondWeekles: secondWeekles,
@@ -62,7 +63,7 @@ exports.getEditProfile = (req, res, next) => {
   User.findById(req.session.user._id)
     .then(user => {
       res.render('front/profile/edit', {
-        pageTitle: 'Profilo utente',
+        pageTitle: 'Profilo utente - '+constants.APP_TITLE,
         path: '/profile',
         user: user
       });
@@ -144,7 +145,7 @@ exports.getLessons = (req, res, next) => {
     .then(lessons => {
       userLessons = helpers.getLessonsByUserId(lessons, req.session.user._id);
       res.render('front/lessons', {
-        pageTitle: 'Le mie prenotazioni',
+        pageTitle: 'Le mie prenotazioni - '+constants.APP_TITLE,
         path: '/lessons',
         lessons: userLessons,
         messageInfo: msgInf,

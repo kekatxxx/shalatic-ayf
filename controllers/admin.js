@@ -28,7 +28,7 @@ exports.postAddLesson = (req, res, next) => {
   lesson
     .save()
     .then(result => {
-      console.log('Lesson created.', result);
+      console.log('Lesson created.');
       res.redirect('/admin/lessons'); 
     }).catch(err => {
       console.log(err);
@@ -59,7 +59,7 @@ exports.postEditLesson = (req, res, next) => {
       return lesson.save();
     })
     .then(result => {
-      console.log('Lesson modified.', result);
+      console.log('Lesson modified.');
       res.redirect('/admin/lessons'); 
     }).catch(err => {
       console.log(err);

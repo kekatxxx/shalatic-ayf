@@ -9,6 +9,6 @@ exports.SUPERUSER_MAIL = [
 
 exports.APP_TITLE = 'Astanga Firenze Prenotazioni';
 
-exports.APP_URL = environment === 'dev' ? 'http://localhost:3000' : 'http://ayf.prenotashala.online';
+exports.APP_URL = environment === 'dev' ? 'http://localhost:3000' : 'https://www.ayfprenota.com';
 
 exports.ITEMS_PER_PAGE = 10;

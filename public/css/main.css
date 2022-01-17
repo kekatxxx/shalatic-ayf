@@ -1,9 +1,9 @@
 nav.navbar{
   background-color: #c8e7f4!important;
-  background-image: url('../img/astanga.png');
+  /* background-image: url('../img/astanga.png');
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 70px;
+  background-size: 70px; */
 }
 
 .navbar-light .navbar-nav .active{
@@ -11,8 +11,10 @@ nav.navbar{
 }
 
 .container{
+  padding-bottom: 3rem;
 }
 
+/*
 footer{
   padding-top: 3rem;
   padding-bottom: 3rem;
@@ -21,3 +23,4 @@ footer{
 footer img{
   height: 70px;
 }
+*/

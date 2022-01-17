@@ -11,7 +11,11 @@
             <span class="text-secondary"><%= lesson.type %></span>
         </div>
         <div class="d-none d-md-flex col-md-3 text-left">
-            <%= lesson.maxSlots-lesson.participants.length %> su <%= lesson.maxSlots %> posti
+            <% if(lesson.maxSlots > lesson.participants.length){ %>
+                <span class="badge badge-pill badge-success">Posti disponibili</span>
+            <% }else{ %>
+                <span class="badge badge-pill badge-secondary">Posti esauriti</span>
+            <% } %>
         </div>
         <div class="col-6 col-md-3 text-md-right text-center">
             <form action="/reserve-slot" method="POST" class="d-inline">
